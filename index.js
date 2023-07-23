@@ -23,6 +23,7 @@ const psasubtracker = require("./DB/models/psasubtracker");
 const reviewcards = require("./DB/models/reviewsCards");
 const axios = require("axios");
 const { ObjectId } = require("mongodb");
+const cron = require("node-cron");
 var moment = require("moment");
 const connectDatabase = require("./DB/config");
 app.use(express.json());
@@ -3927,3 +3928,14 @@ app.post("/carddetails", async (req, res) => {
 app.listen(5000);
 
 //5001 Server confirgure for nashcard application
+
+// Cron job
+cron.schedule(
+  "0 10 * * *",
+  async () => {
+    console.log("Cron job will run every day at 10:00 AM at USA time");
+  },
+  {
+    timezone: "America/New_York",
+  }
+);
